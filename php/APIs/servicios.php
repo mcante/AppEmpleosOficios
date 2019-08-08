@@ -3,13 +3,10 @@
 # Conexion con la BD
 $connect = mysqli_connect("localhost","id9529033_root","123456","id9529033_servitodo");
 
-$id =  $_POST["id"];
-
 // Muy Importante, la codificacion del json tiene que ser igual al de la BD.
 mysqli_set_charset($connect, 'utf8'); 
 
-
-  $sql = "SELECT * FROM contratos_realizados WHERE contratante='$id'"; //Consulta SQL
+  $sql = "SELECT * FROM SERVICIOS_MIEMBROS"; //Consulta SQL
 
   $result = mysqli_query($connect, $sql); // Ejucutar la consulta
 
@@ -34,6 +31,3 @@ mysqli_set_charset($connect, 'utf8');
 //Cerrar conexion
 mysqli_close($connect);
 ?>
-
-
-

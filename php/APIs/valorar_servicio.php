@@ -1,6 +1,7 @@
 <?php
 
 	include 'conexion.php';
+	mysqli_set_charset($conexion, 'utf8'); 
 
 	if(isset($_POST['contrato'])){
 	
