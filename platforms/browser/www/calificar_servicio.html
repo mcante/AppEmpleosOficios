@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ServiTodo</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="js/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons 
+  <link rel="stylesheet" href="js/bower_components/Ionicons/css/ionicons.min.css">
+  -->
+  <!-- Theme style -->
+  <link rel="stylesheet" href="js/dist/css/AdminLTE.min.css">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="index2.html"><b>Servi</b>Todo</a>
+  </div>
+
+  <div class="register-box-body">
+    <p class="login-box-msg">Calificar Servicio</p>
+
+    <!-- <form action="perfil.html" method="post"> -->
+      <form id="registro">
+
+        <div class="form-group has-feedback">
+          <input type="hidden" class="form-control" placeholder="contrato" id="contrato" name="contrato">
+          <span class="form-control-feedback"></span>
+        </div>
+        
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="Comentario" id="comentario" name="comentario">
+          <span class="glyphicon glyphicon-send form-control-feedback"></span>
+        </div>
+
+        <div class="form-group has-feedback">
+          <input type="number" class="form-control" placeholder="Valoración" id="valoracion" name="valoracion">
+          <span class="glyphicon glyphicon-star form-control-feedback"></span>
+        </div>
+
+      <div class="row">
+ 
+          <button type="button" class="btn btn-primary btn-block btn-flat" id="actualizar" id="actualizar">Guardar</button>
+
+      </div>
+    </form>
+  </div>
+  <!-- /.form-box -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery 3 -->
+<script src="js/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<script src="js/geturl.js"></script>
+
+</body>
+</html>
+
+
+
+<script>
+  $(document).ready(function(){
+
+    var contrato = decodeURI(getUrlVal()['contrato']);
+    var valoracion = decodeURI(getUrlVal()['valoracion']);
+    var comentario = decodeURI(getUrlVal()['comentario']);
+    
+    //alert(contrato);
+    //alert(valoracion);
+    //alert(comentario);
+
+    document.getElementById("contrato").value = contrato;
+    document.getElementById("comentario").value = comentario;
+    document.getElementById("valoracion").value = valoracion;
+
+    $("#actualizar").click(function(){
+
+      var nuevoVal = document.getElementById("valoracion").value;
+
+      if(nuevoVal >= '1' && nuevoVal <= '5'){
+        var datos = $("#registro").serialize();
+        //alert(datos);
+
+          $.ajax({
+            url:"https://servi-todo.000webhostapp.com/valorar_servicio.php",
+            method:"POST",
+            data:datos,
+            
+            success: function(data){
+              //alert(data);
+
+                alert("Actualización éxitosa");
+                $(location).attr('href','servicios_contratados.html');
+            }
+          });
+        return false;
+      }else{
+        alert(nuevoVal + " está fuera del rango, valore de 1 a 5.");
+      }
+
+      
+
+    });
+  });
+</script>
